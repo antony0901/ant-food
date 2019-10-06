@@ -29,6 +29,8 @@ import {
   light as theme,
 } from '@eva-design/eva';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 /**
  * Use any valid `name` property from eva icons (e.g `github`, or `heart-outline`)
@@ -40,6 +42,7 @@ const HeartIcon = (style: ImageStyle): React.ReactElement<ImageProps> => (
 
 const App = (): React.ReactFragment => (
   <React.Fragment>
+    <Provider store={store}>
     <IconRegistry icons={EvaIconsPack}/>
     <ApplicationProvider mapping={mapping} theme={theme}>
       <Layout style={styles.container}>
@@ -57,6 +60,8 @@ const App = (): React.ReactFragment => (
         </Button>
       </Layout>
     </ApplicationProvider>
+    </Provider>
+    
   </React.Fragment>
 );
 
