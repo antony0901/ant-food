@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AntFood.Domain;
+﻿using AntFood.Domain;
+using AntFood.Domain.Services;
+using AntFood.GraphQLServer.Schema;
+using AntFood.GraphQLServer.Schema.Mutations;
+using AntFood.GraphQLServer.Schema.Queries;
+using AntFood.GraphQLServer.Schema.Types;
+using GraphQL.Server.Ui.Playground;
+using HotChocolate;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace AntFood.GraphQLServer
 {
@@ -29,6 +30,12 @@ namespace AntFood.GraphQLServer
         {
             services.AddDbContextPool<AFDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddGraphQL(sp => SchemaBuilder.New()
+              .AddQueryType<QueryType>()
+              .AddMutationType<MutationType>()
+              .AddServices(sp)
+              .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,8 +51,12 @@ namespace AntFood.GraphQLServer
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseWebSockets();
+            app.UseGraphQL("/graphql");
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()
+            {
+                Path = "/graphql"
+            });
         }
     }
 }
