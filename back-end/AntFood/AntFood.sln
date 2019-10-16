@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntFood.GraphQL", "AntFood.GraphQL\AntFood.GraphQL.csproj", "{07EE5F44-3DB9-4DC7-A661-B84B568D6EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntFood.Domain", "AntFood.Domain\AntFood.Domain.csproj", "{2D281668-9097-489C-934B-310A6F1FB49A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntFood.Domain", "AntFood.Domain\AntFood.Domain.csproj", "{2D281668-9097-489C-934B-310A6F1FB49A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AntFood.Contracts", "AntFood.Contracts\AntFood.Contracts.csproj", "{9141D46D-DA22-45EA-9168-72080A6BEB96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntFood.Contracts", "AntFood.Contracts\AntFood.Contracts.csproj", "{9141D46D-DA22-45EA-9168-72080A6BEB96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntFood.GraphQLServer", "AntFood.GraphQLServer\AntFood.GraphQLServer.csproj", "{F5BD77FA-2EFB-477E-9F91-45EE05937B75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07EE5F44-3DB9-4DC7-A661-B84B568D6EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07EE5F44-3DB9-4DC7-A661-B84B568D6EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07EE5F44-3DB9-4DC7-A661-B84B568D6EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07EE5F44-3DB9-4DC7-A661-B84B568D6EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D281668-9097-489C-934B-310A6F1FB49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D281668-9097-489C-934B-310A6F1FB49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D281668-9097-489C-934B-310A6F1FB49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{9141D46D-DA22-45EA-9168-72080A6BEB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9141D46D-DA22-45EA-9168-72080A6BEB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9141D46D-DA22-45EA-9168-72080A6BEB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5BD77FA-2EFB-477E-9F91-45EE05937B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5BD77FA-2EFB-477E-9F91-45EE05937B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5BD77FA-2EFB-477E-9F91-45EE05937B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5BD77FA-2EFB-477E-9F91-45EE05937B75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

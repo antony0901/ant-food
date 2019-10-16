@@ -9,7 +9,7 @@ namespace AntFood.Domain.Models.Builders
     {
         public static void Build(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<Food>().ToTable("Restaurants");
+            var entity = modelBuilder.Entity<Food>().ToTable("Foods");
 
             entity.HasKey(x => x.Id);
         }
