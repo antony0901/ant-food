@@ -20,5 +20,10 @@ namespace AntFood.GraphQLServer.Schema.Queries
         {
             return await _restaurantService.GetRestaurantAsync(id);
         }
+
+        public async Task<RestaurantContract[]> GetRestaurants()
+        {
+            return await _restaurantService.GetRestaurantsAsync();
+        }
     }
 }

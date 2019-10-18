@@ -7,7 +7,7 @@ namespace AntFood.Domain.Models
 {
     public class Restaurant : AggregateRootBase
     {
-        protected Restaurant()
+        public Restaurant()
         {
         }
 

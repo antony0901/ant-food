@@ -108,11 +108,11 @@ namespace AntFood.Domain.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Capicity");
+                    b.Property<int>("Capacity");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Order");
+                    b.Property<int>("Order");
 
                     b.Property<Guid>("RestaurantId");
 

@@ -12,15 +12,24 @@ namespace AntFood.Domain.Models
         {
         }
 
+        public Table(Guid restaurantId, string name, int order, int capacity, Status status)
+        {
+            RestaurantId = restaurantId;
+            Name = name;
+            Order = order;
+            Capacity = capacity;
+            Status = status;
+        }
+
         public Guid RestaurantId { get; set; }
 
         public Restaurant Restaurant { get; set; }
 
         public string Name { get; set; }
 
-        public string Order { get; set; }
+        public int Order { get; set; }
 
-        public int Capicity { get; set; }
+        public int Capacity { get; set; }
 
         public Status Status { get; set; }
     }

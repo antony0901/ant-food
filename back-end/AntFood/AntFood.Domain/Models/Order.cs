@@ -9,6 +9,10 @@ namespace AntFood.Domain.Models
 {
     public class Order : EntityBase
     {
+        public Order()
+        {
+        }
+
         public Order(Guid restaurantId, Guid tableId)
         {
             RestaurantId = restaurantId;
