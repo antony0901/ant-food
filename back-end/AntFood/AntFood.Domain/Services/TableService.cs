@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using AntFood.Contracts;
 using AntFood.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AntFood.Domain.Services
 {
-    public class TableService : ApplicationServiceBase
+    public class TableService : ApplicationServiceBase, ITableService
     {
         public TableService(AFDbContext dbContext) 
             : base(dbContext)
@@ -29,6 +30,25 @@ namespace AntFood.Domain.Services
                 Capacity = newTable.Capacity,
                 Status = newTable.Status
             };
+        }
+
+        public async Task<TableContract[]> GetTablesAsync(Guid restaurantId)
+        {
+            var tables = await _dbContext.Set<Table>()
+                .Where(x => x.RestaurantId == restaurantId).ToArrayAsync();
+            var rs = new List<TableContract>();
+            foreach (var item in tables)
+            {
+                rs.Add(new TableContract
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Capacity = item.Capacity,
+                    Status = item.Status
+                });
+            }
+
+            return rs.ToArray();
         }
     }
 }
