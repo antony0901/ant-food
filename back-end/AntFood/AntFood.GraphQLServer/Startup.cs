@@ -3,7 +3,6 @@ using AntFood.Domain.Services;
 using AntFood.GraphQLServer.Schema;
 using AntFood.GraphQLServer.Schema.Mutations;
 using AntFood.GraphQLServer.Schema.Queries;
-using AntFood.GraphQLServer.Schema.Types;
 using GraphQL.Server.Ui.Playground;
 using HotChocolate;
 using HotChocolate.AspNetCore;
@@ -33,6 +32,8 @@ namespace AntFood.GraphQLServer
                 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<ITableService, TableService>();
+            
             services.AddGraphQL(sp => SchemaBuilder.New()
               .AddQueryType<QueryType>()
               .AddMutationType<MutationType>()

@@ -16,6 +16,7 @@ namespace AntFood.Domain.Models
             : base()
         {
             Name = name;
+            Status = Status.Inactive;
         }
 
         public Status Status { get; set; }

@@ -49,7 +49,8 @@ namespace AntFood.Domain.Services
                 rs.Add(new RestaurantContract
                 {
                     Id = item.Id,
-                    Name = item.Name
+                    Name = item.Name,
+                    Status = item.Status
                 });
             }
 
