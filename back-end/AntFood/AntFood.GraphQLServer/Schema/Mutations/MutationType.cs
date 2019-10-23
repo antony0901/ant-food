@@ -12,6 +12,7 @@ namespace AntFood.GraphQLServer.Schema
         protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
         {
             descriptor.Field(x => x.AddRestaurant(default));
+            descriptor.Field(x => x.AddTable(default));
         }
     }
 }
