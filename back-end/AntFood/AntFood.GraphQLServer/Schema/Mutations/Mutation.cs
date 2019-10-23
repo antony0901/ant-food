@@ -16,7 +16,7 @@ namespace AntFood.GraphQLServer.Schema.Mutations
             _restaurantService = restaurantService;
         }
 
-        public async Task<RestaurantContract> AddRestaurant(string name)
+        public async Task<RestaurantType> AddRestaurant(string name)
         {
             return await _restaurantService.AddRestaurantAsync(name);
         }

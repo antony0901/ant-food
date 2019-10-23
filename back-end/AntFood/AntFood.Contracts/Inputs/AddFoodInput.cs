@@ -3,7 +3,7 @@ using AntFood.Contracts.Enums;
 
 namespace AntFood.Contracts
 {
-    public class AddFoodContract
+    public class AddFoodInput
     {
         public string Name { get; set; }
 

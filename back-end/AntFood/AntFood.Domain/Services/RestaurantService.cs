@@ -16,37 +16,37 @@ namespace AntFood.Domain.Services
         {
         }
 
-        public async Task<RestaurantContract> AddRestaurantAsync(string name)
+        public async Task<RestaurantType> AddRestaurantAsync(string name)
         {
             var newRestaurant = new Restaurant(name);
             _dbContext.Set<Restaurant>().Add(newRestaurant);
             await _dbContext.SaveChangesAsync();
 
-            return new RestaurantContract
+            return new RestaurantType
             {
                 Id = newRestaurant.Id,
                 Name = name
             };
         }
 
-        public async Task<RestaurantContract> GetRestaurantAsync(Guid id)
+        public async Task<RestaurantType> GetRestaurantAsync(Guid id)
         {
             var restaurant = await _dbContext.Set<Restaurant>().SingleOrDefaultAsync(x => x.Id == id);
 
-            return new RestaurantContract
+            return new RestaurantType
             {
                 Id = restaurant.Id,
                 Name = restaurant.Name
             };
         }
 
-        public async Task<RestaurantContract[]> GetRestaurantsAsync()
+        public async Task<RestaurantType[]> GetRestaurantsAsync()
         {
             var restaurants = await _dbContext.Set<Restaurant>().ToArrayAsync();
-            var rs = new List<RestaurantContract>();
+            var rs = new List<RestaurantType>();
             foreach (var item in restaurants)
             {
-                rs.Add(new RestaurantContract
+                rs.Add(new RestaurantType
                 {
                     Id = item.Id,
                     Name = item.Name,

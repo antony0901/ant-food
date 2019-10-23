@@ -18,17 +18,17 @@ namespace AntFood.GraphQLServer.Schema.Queries
             _tableService = tableService;
         }
 
-        public async Task<RestaurantContract> GetRestaurant(Guid id)
+        public async Task<RestaurantType> GetRestaurant(Guid id)
         {
             return await _restaurantService.GetRestaurantAsync(id);
         }
 
-        public async Task<RestaurantContract[]> GetRestaurants()
+        public async Task<RestaurantType[]> GetRestaurants()
         {
             return await _restaurantService.GetRestaurantsAsync();
         }
 
-        public async Task<TableContract[]> GetTablesOfRestaurant(Guid id)
+        public async Task<TableType[]> GetTablesOfRestaurant(Guid id)
         {
             return await _tableService.GetTablesAsync(id);
         }
