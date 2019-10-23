@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AntFood.Contracts.Enums;
 
 namespace AntFood.Domain.Models
 {
@@ -16,6 +17,8 @@ namespace AntFood.Domain.Models
         {
             Name = name;
         }
+
+        public Status Status { get; set; }
 
         public string Name { get; set; }
 

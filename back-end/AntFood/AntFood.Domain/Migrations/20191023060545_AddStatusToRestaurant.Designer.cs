@@ -3,14 +3,16 @@ using System;
 using AntFood.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AntFood.Domain.Migrations
 {
     [DbContext(typeof(AFDbContext))]
-    partial class AFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191023060545_AddStatusToRestaurant")]
+    partial class AddStatusToRestaurant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

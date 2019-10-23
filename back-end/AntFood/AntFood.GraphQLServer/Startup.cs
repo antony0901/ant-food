@@ -28,7 +28,9 @@ namespace AntFood.GraphQLServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AFDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<AFDbContext>(options => 
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+                
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddGraphQL(sp => SchemaBuilder.New()

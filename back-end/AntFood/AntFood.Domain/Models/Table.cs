@@ -13,6 +13,7 @@ namespace AntFood.Domain.Models
         }
 
         public Table(Guid restaurantId, string name, int order, int capacity, Status status)
+            : base()
         {
             RestaurantId = restaurantId;
             Name = name;
