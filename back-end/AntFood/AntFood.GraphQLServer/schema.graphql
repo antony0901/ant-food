@@ -25,7 +25,8 @@ type OrderType {
   id: Uuid!
   items: [OrderItemType]
   paidStatus: PaidStatus!
-  table: String
+  table: TableType
+  tableId: Uuid!
   totalPrice: Decimal!
 }
 
@@ -37,6 +38,7 @@ enum PaidStatus {
 
 type Query {
   order(id: Uuid): OrderType!
+  orders(restaurantId: Uuid!): [OrderType]
   restaurant(id: Uuid!): RestaurantType
   restaurants: [RestaurantType]
   tablesOfRestaurant(id: Uuid!): [TableType]

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AntFood.Contracts;
 using AntFood.Contracts.Types;
 using AntFood.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace AntFood.Domain.Services
 {
@@ -60,14 +60,13 @@ namespace AntFood.Domain.Services
         public async Task<OrderType> GetOrderAsync(Guid orderId)
         {
             var order = await _dbContext.Set<Order>()
-                .Include(o => o.Table)
                 .Include(o => o.OrderItems)
                 .SingleOrDefaultAsync(o => o.Id == orderId);
 
             return new OrderType
             {
                 Id = order.Id,
-                Table = order.Table.Name,
+                TableId = order.TableId,
                 PaidStatus = order.PaidStatus,
                 TotalPrice = order.TotalPrice()
             };
@@ -85,6 +84,22 @@ namespace AntFood.Domain.Services
                 Food = oi.Food.Name,
                 Quantity = oi.Quantity,
                 UnitPrice = oi.UnitPrice
+            }).ToArray();
+        }
+
+        public async Task<OrderType[]> GetOrdersAsync(Guid restaurantId)
+        {
+            var orders = await _dbContext.Set<Order>()
+                .Include(o => o.OrderItems)
+                .Where(o => o.RestaurantId == restaurantId)
+                .ToListAsync();
+
+            return orders.Select(o => new OrderType
+            {
+                Id = o.Id,
+                TableId = o.TableId,
+                PaidStatus = o.PaidStatus,
+                TotalPrice = o.TotalPrice()
             }).ToArray();
         }
     }

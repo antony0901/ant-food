@@ -36,5 +36,10 @@ namespace AntFood.GraphQLServer.Schema.Queries
         {
             return await _restaurantService.GetOrderAsync(id);
         }
+
+        public async Task<OrderType[]> GetOrders(Guid restaurantId)
+        {
+            return await _restaurantService.GetOrdersAsync(restaurantId);
+        }
     }
 }

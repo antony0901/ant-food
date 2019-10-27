@@ -7,7 +7,7 @@ namespace AntFood.Contracts.Types
     {
         public Guid Id { get; set; }
 
-        public string Table { get; set; }
+        public Guid TableId { get; set; }
 
         public PaidStatus PaidStatus { get; set; }
 

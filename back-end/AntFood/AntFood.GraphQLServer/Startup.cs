@@ -39,6 +39,7 @@ namespace AntFood.GraphQLServer
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<ITableService, TableService>();
 
+            services.AddDataLoaderRegistry();
             //ConfigureGraphQLCodeFirst(services);
             ConfigureGraphQLSchemaFirst(services);
         }

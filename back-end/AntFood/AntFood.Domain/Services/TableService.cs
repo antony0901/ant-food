@@ -50,5 +50,22 @@ namespace AntFood.Domain.Services
 
             return rs.ToArray();
         }
+
+        public async Task<IReadOnlyDictionary<Guid, TableType>> GetTablesAsync(IReadOnlyCollection<Guid> tableIds)
+        {
+            var tables = await _dbContext.Set<Table>()
+                .Where(t => tableIds.Contains(t.Id))
+                .Select(t => new TableType
+                {
+                    Capacity = t.Capacity,
+                    Id = t.Id,
+                    Name = t.Name,
+                    Order = t.Order,
+                    Status = t.Status
+                })
+                .ToListAsync();
+
+            return tables.ToDictionary(t => t.Id);
+        }
     }
 }

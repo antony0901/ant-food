@@ -16,5 +16,7 @@ namespace AntFood.Domain.Services
         Task<OrderType> GetOrderAsync(Guid orderId);
 
         Task<OrderItemType[]> GetOrderItemsAsync(Guid orderId);
+
+        Task<OrderType[]> GetOrdersAsync(Guid restaurantId);
     }
 }
