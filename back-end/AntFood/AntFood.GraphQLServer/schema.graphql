@@ -1,0 +1,38 @@
+input AddTableInput {
+  capacity: Int!
+  name: String
+  order: Int!
+  restaurantId: Uuid!
+  status: Status!
+}
+
+type Mutation {
+  addRestaurant(name: String!): RestaurantType
+  addTable(input: AddTableInput!): TableType
+}
+
+type Query {
+  restaurant(id: Uuid!): RestaurantType
+  restaurants: [RestaurantType]
+  tablesOfRestaurant(id: Uuid!): [TableType]
+}
+
+type RestaurantType {
+  id: Uuid!
+  name: String
+  status: Status!
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  OCCUPIED
+}
+
+type TableType {
+  capacity: Int!
+  id: Uuid!
+  name: String
+  order: Int!
+  status: Status!
+}
