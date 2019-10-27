@@ -1,11 +1,13 @@
 ﻿using System;
 using AntFood.Contracts;
 using AntFood.Contracts.Enums;
+using AntFood.Contracts.Types;
 using AntFood.Domain;
 using AntFood.Domain.Services;
 using AntFood.GraphQLServer.Schema;
 using AntFood.GraphQLServer.Schema.Mutations;
 using AntFood.GraphQLServer.Schema.Queries;
+using AntFood.GraphQLServer.Types;
 using GraphQL.Server.Ui.Playground;
 using HotChocolate;
 using HotChocolate.AspNetCore;
@@ -60,6 +62,9 @@ namespace AntFood.GraphQLServer
                 .BindResolver<MutationResolvers>(c => c.To<Mutation>())
                 .BindComplexType<RestaurantType>(ctx => ctx.To("RestaurantType"))
                 .BindComplexType<TableType>(c => c.To("TableType"))
+                .BindComplexType<OrderType>(c => c.To("OrderType"))
+                .BindResolver<OrderTypeResolver>(c => c.To<OrderType>())
+                .BindComplexType<OrderItemType>(c => c.To("OrderItemType"))
                 .BindComplexType<AddTableInput>(c => c.To("AddTableInput"))
                 .Create());
         }

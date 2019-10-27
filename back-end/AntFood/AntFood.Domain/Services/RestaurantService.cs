@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AntFood.Contracts;
+using AntFood.Contracts.Types;
 using AntFood.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AntFood.Domain.Services
 {
@@ -55,6 +55,37 @@ namespace AntFood.Domain.Services
             }
 
             return rs.ToArray();
+        }
+
+        public async Task<OrderType> GetOrderAsync(Guid orderId)
+        {
+            var order = await _dbContext.Set<Order>()
+                .Include(o => o.Table)
+                .Include(o => o.OrderItems)
+                .SingleOrDefaultAsync(o => o.Id == orderId);
+
+            return new OrderType
+            {
+                Id = order.Id,
+                Table = order.Table.Name,
+                PaidStatus = order.PaidStatus,
+                TotalPrice = order.TotalPrice()
+            };
+        }
+
+        public async Task<OrderItemType[]> GetOrderItemsAsync(Guid orderId)
+        {
+            var order = await _dbContext.Set<Order>()
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Food)
+                .SingleOrDefaultAsync(o => o.Id == orderId);
+
+            return order.OrderItems.Select(oi => new OrderItemType
+            {
+                Food = oi.Food.Name,
+                Quantity = oi.Quantity,
+                UnitPrice = oi.UnitPrice
+            }).ToArray();
         }
     }
 }

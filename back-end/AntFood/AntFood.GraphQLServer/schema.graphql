@@ -6,12 +6,37 @@ input AddTableInput {
   status: Status!
 }
 
+scalar Decimal
+
+scalar MultiplierPath
+
 type Mutation {
-  addRestaurant(name: String!): RestaurantType
-  addTable(input: AddTableInput!): TableType
+  addRestaurant(name: String): RestaurantType
+  addTable(input: AddTableInput): TableType
+}
+
+type OrderItemType {
+  food: String
+  quantity: Int!
+  unitPrice: Decimal!
+}
+
+type OrderType {
+  id: Uuid!
+  items: [OrderItemType]
+  paidStatus: PaidStatus!
+  table: String
+  totalPrice: Decimal!
+}
+
+enum PaidStatus {
+  PAID
+  UNPAID
+  PARTIAL
 }
 
 type Query {
+  order(id: Uuid): OrderType!
   restaurant(id: Uuid!): RestaurantType
   restaurants: [RestaurantType]
   tablesOfRestaurant(id: Uuid!): [TableType]
@@ -36,3 +61,5 @@ type TableType {
   order: Int!
   status: Status!
 }
+
+scalar Uuid

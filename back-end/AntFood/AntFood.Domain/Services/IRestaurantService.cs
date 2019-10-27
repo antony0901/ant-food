@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AntFood.Contracts;
+using AntFood.Contracts.Types;
 
 namespace AntFood.Domain.Services
 {
@@ -13,5 +12,9 @@ namespace AntFood.Domain.Services
         Task<RestaurantType> GetRestaurantAsync(Guid id);
 
         Task<RestaurantType[]> GetRestaurantsAsync();
+
+        Task<OrderType> GetOrderAsync(Guid orderId);
+
+        Task<OrderItemType[]> GetOrderItemsAsync(Guid orderId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AntFood.Contracts;
+using AntFood.Contracts.Types;
 using AntFood.Domain.Services;
 
 namespace AntFood.GraphQLServer.Schema.Queries
@@ -29,6 +30,11 @@ namespace AntFood.GraphQLServer.Schema.Queries
         public async Task<TableType[]> GetTablesOfRestaurant(Guid id)
         {
             return await _tableService.GetTablesAsync(id);
+        }
+
+        public async Task<OrderType> GetOrder(Guid id)
+        {
+            return await _restaurantService.GetOrderAsync(id);
         }
     }
 }
