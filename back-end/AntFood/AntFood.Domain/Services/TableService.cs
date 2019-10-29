@@ -16,13 +16,13 @@ namespace AntFood.Domain.Services
         {
         }
 
-        public async Task<TableContract> AddTableAsync(AddTable contract)
+        public async Task<TableType> AddTableAsync(AddTable contract)
         {
             var newTable = new Table(contract.RestaurantId, contract.Name, contract.Order, contract.Capacity, contract.Status);
             _dbContext.Set<Table>().Add(newTable);
             await _dbContext.SaveChangesAsync();
 
-            return new TableContract
+            return new TableType
             {
                 Id = newTable.Id,
                 Name = newTable.Name,
@@ -32,14 +32,14 @@ namespace AntFood.Domain.Services
             };
         }
 
-        public async Task<TableContract[]> GetTablesAsync(Guid restaurantId)
+        public async Task<TableType[]> GetTablesAsync(Guid restaurantId)
         {
             var tables = await _dbContext.Set<Table>()
                 .Where(x => x.RestaurantId == restaurantId).ToArrayAsync();
-            var rs = new List<TableContract>();
+            var rs = new List<TableType>();
             foreach (var item in tables)
             {
-                rs.Add(new TableContract
+                rs.Add(new TableType
                 {
                     Id = item.Id,
                     Name = item.Name,
@@ -49,6 +49,23 @@ namespace AntFood.Domain.Services
             }
 
             return rs.ToArray();
+        }
+
+        public async Task<IReadOnlyDictionary<Guid, TableType>> GetTablesAsync(IReadOnlyCollection<Guid> tableIds)
+        {
+            var tables = await _dbContext.Set<Table>()
+                .Where(t => tableIds.Contains(t.Id))
+                .Select(t => new TableType
+                {
+                    Capacity = t.Capacity,
+                    Id = t.Id,
+                    Name = t.Name,
+                    Order = t.Order,
+                    Status = t.Status
+                })
+                .ToListAsync();
+
+            return tables.ToDictionary(t => t.Id);
         }
     }
 }

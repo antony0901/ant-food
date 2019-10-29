@@ -1,0 +1,67 @@
+input AddTableInput {
+  capacity: Int!
+  name: String
+  order: Int!
+  restaurantId: Uuid!
+  status: Status!
+}
+
+scalar Decimal
+
+scalar MultiplierPath
+
+type Mutation {
+  addRestaurant(name: String): RestaurantType
+  addTable(input: AddTableInput): TableType
+}
+
+type OrderItemType {
+  food: String
+  quantity: Int!
+  unitPrice: Decimal!
+}
+
+type OrderType {
+  id: Uuid!
+  items: [OrderItemType]
+  paidStatus: PaidStatus!
+  table: TableType
+  tableId: Uuid!
+  totalPrice: Decimal!
+}
+
+enum PaidStatus {
+  PAID
+  UNPAID
+  PARTIAL
+}
+
+type Query {
+  order(id: Uuid): OrderType!
+  orders(restaurantId: Uuid!): [OrderType]
+  restaurant(id: Uuid!): RestaurantType
+  restaurants: [RestaurantType]
+  tablesOfRestaurant(id: Uuid!): [TableType]
+}
+
+type RestaurantType {
+  id: Uuid!
+  name: String
+  status: Status!
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  OCCUPIED
+}
+
+type TableType {
+  capacity: Int!
+  id: Uuid!
+  name: String
+  order: Int!
+  status: Status!
+}
+
+scalar Uuid

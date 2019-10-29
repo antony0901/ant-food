@@ -1,17 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AntFood.Contracts;
+using AntFood.Contracts.Types;
 
 namespace AntFood.Domain.Services
 {
     public interface IRestaurantService
     {
-        Task<RestaurantContract> AddRestaurantAsync(string name);
+        Task<RestaurantType> AddRestaurantAsync(string name);
 
-        Task<RestaurantContract> GetRestaurantAsync(Guid id);
+        Task<RestaurantType> GetRestaurantAsync(Guid id);
 
-        Task<RestaurantContract[]> GetRestaurantsAsync();
+        Task<RestaurantType[]> GetRestaurantsAsync();
+
+        Task<OrderType> GetOrderAsync(Guid orderId);
+
+        Task<OrderItemType[]> GetOrderItemsAsync(Guid orderId);
+
+        Task<OrderType[]> GetOrdersAsync(Guid restaurantId);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AntFood.GraphQLServer.Schema.Mutations;
+﻿using AntFood.GraphQLServer.Schema.Mutations;
 using HotChocolate.Types;
 
 namespace AntFood.GraphQLServer.Schema

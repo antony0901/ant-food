@@ -3,12 +3,14 @@ using AntFood.Contracts.Enums;
 
 namespace AntFood.Contracts
 {
-    public class FoodContract
+    public class RestaurantType
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public string ImageUrl { get; set; }
+        public Status Status { get; set; }
+
+        public TableType[] Tables { get; set; }
     }
 }

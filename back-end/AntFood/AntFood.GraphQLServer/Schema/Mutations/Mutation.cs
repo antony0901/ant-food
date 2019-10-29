@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AntFood.Contracts;
 using AntFood.Domain.Services;
 
@@ -18,12 +15,12 @@ namespace AntFood.GraphQLServer.Schema.Mutations
             _tableService = tableService;
         }
 
-        public async Task<RestaurantContract> AddRestaurant(string name)
+        public async Task<RestaurantType> AddRestaurant(string name)
         {
             return await _restaurantService.AddRestaurantAsync(name);
         }
 
-        public async Task<TableContract> AddTable(AddTable input)
+        public async Task<TableType> AddTable(AddTable input)
         {
             return await _tableService.AddTableAsync(input);
         }

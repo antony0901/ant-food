@@ -4,9 +4,9 @@ using HotChocolate.Types;
 
 namespace AntFood.GraphQLServer.Schema.Types
 {
-    public class RestaurantType : ObjectType<RestaurantContract>
+    public class RestaurantType : ObjectType<Contracts.RestaurantType>
     {
-        protected override void Configure(IObjectTypeDescriptor<RestaurantContract> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<Contracts.RestaurantType> descriptor)
         {
             descriptor.Field(x => x.Id);
             descriptor.Field(x => x.Name);
@@ -15,7 +15,7 @@ namespace AntFood.GraphQLServer.Schema.Types
                 .Resolver(ctx =>
                 {
                     var tableService = ctx.Service<ITableService>();
-                    var restId = ctx.Parent<RestaurantContract>().Id;
+                    var restId = ctx.Parent<Contracts.RestaurantType>().Id;
                     return tableService.GetTablesAsync(restId).Result;
                 });
         }

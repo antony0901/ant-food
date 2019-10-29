@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AntFood.Contracts;
 
@@ -8,8 +7,10 @@ namespace AntFood.Domain.Services
 {
     public interface ITableService
     {
-        Task<TableContract> AddTableAsync(AddTable addTableType);
+        Task<TableType> AddTableAsync(AddTable addTableType);
 
-        Task<TableContract[]> GetTablesAsync(Guid restaurantId);
+        Task<TableType[]> GetTablesAsync(Guid restaurantId);
+
+        Task<IReadOnlyDictionary<Guid, TableType>> GetTablesAsync(IReadOnlyCollection<Guid> tableIds);
     }
 }

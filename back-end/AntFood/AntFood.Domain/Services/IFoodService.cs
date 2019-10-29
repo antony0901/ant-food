@@ -8,8 +8,8 @@ namespace AntFood.Domain.Services
 {
     public interface IFoodService
     {
-        Task<FoodContract[]> AddFoodsServices(AddFood[] addFoodContracts);
+        Task<FoodType[]> AddFoodsServices(AddFood[] addFoodContracts);
 
-        Task<FoodContract[]> GetTablesAsync(Guid restaurantId);
+        Task<FoodType[]> GetTablesAsync(Guid restaurantId);
     }
 }
