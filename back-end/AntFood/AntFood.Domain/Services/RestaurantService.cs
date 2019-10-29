@@ -16,37 +16,37 @@ namespace AntFood.Domain.Services
         {
         }
 
-        public async Task<RestaurantType> AddRestaurantAsync(string name)
+        public async Task<Contracts.RestaurantContract> AddRestaurantAsync(string name)
         {
-            var newRestaurant = new Restaurant(name);
-            _dbContext.Set<Restaurant>().Add(newRestaurant);
+            var newRestaurant = new Models.Restaurant(name);
+            _dbContext.Set<Models.Restaurant>().Add(newRestaurant);
             await _dbContext.SaveChangesAsync();
 
-            return new RestaurantType
+            return new Contracts.RestaurantContract
             {
                 Id = newRestaurant.Id,
                 Name = name
             };
         }
 
-        public async Task<RestaurantType> GetRestaurantAsync(Guid id)
+        public async Task<Contracts.RestaurantContract> GetRestaurantAsync(Guid id)
         {
             var restaurant = await _dbContext.Set<Restaurant>().SingleOrDefaultAsync(x => x.Id == id);
 
-            return new RestaurantType
+            return new Contracts.RestaurantContract
             {
                 Id = restaurant.Id,
                 Name = restaurant.Name
             };
         }
 
-        public async Task<RestaurantType[]> GetRestaurantsAsync()
+        public async Task<Contracts.RestaurantContract[]> GetRestaurantsAsync()
         {
             var restaurants = await _dbContext.Set<Restaurant>().ToArrayAsync();
-            var rs = new List<RestaurantType>();
+            var rs = new List<Contracts.RestaurantContract>();
             foreach (var item in restaurants)
             {
-                rs.Add(new RestaurantType
+                rs.Add(new Contracts.RestaurantContract
                 {
                     Id = item.Id,
                     Name = item.Name,

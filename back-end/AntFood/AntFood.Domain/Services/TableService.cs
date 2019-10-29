@@ -16,13 +16,13 @@ namespace AntFood.Domain.Services
         {
         }
 
-        public async Task<TableType> AddTableAsync(AddTableInput contract)
+        public async Task<TableContract> AddTableAsync(AddTable contract)
         {
             var newTable = new Table(contract.RestaurantId, contract.Name, contract.Order, contract.Capacity, contract.Status);
             _dbContext.Set<Table>().Add(newTable);
             await _dbContext.SaveChangesAsync();
 
-            return new TableType
+            return new TableContract
             {
                 Id = newTable.Id,
                 Name = newTable.Name,
@@ -32,14 +32,14 @@ namespace AntFood.Domain.Services
             };
         }
 
-        public async Task<TableType[]> GetTablesAsync(Guid restaurantId)
+        public async Task<TableContract[]> GetTablesAsync(Guid restaurantId)
         {
             var tables = await _dbContext.Set<Table>()
                 .Where(x => x.RestaurantId == restaurantId).ToArrayAsync();
-            var rs = new List<TableType>();
+            var rs = new List<TableContract>();
             foreach (var item in tables)
             {
-                rs.Add(new TableType
+                rs.Add(new TableContract
                 {
                     Id = item.Id,
                     Name = item.Name,
