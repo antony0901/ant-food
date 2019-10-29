@@ -7,7 +7,7 @@ namespace AntFood.Domain.Services
 {
     public interface ITableService
     {
-        Task<TableType> AddTableAsync(AddTable addTableType);
+        Task<TableType> AddTableAsync(AddTableInput addTableType);
 
         Task<TableType[]> GetTablesAsync(Guid restaurantId);
 

@@ -16,7 +16,7 @@ namespace AntFood.Domain.Services
         {
         }
 
-        public async Task<TableType> AddTableAsync(AddTable contract)
+        public async Task<TableType> AddTableAsync(AddTableInput contract)
         {
             var newTable = new Table(contract.RestaurantId, contract.Name, contract.Order, contract.Capacity, contract.Status);
             _dbContext.Set<Table>().Add(newTable);
@@ -35,20 +35,16 @@ namespace AntFood.Domain.Services
         public async Task<TableType[]> GetTablesAsync(Guid restaurantId)
         {
             var tables = await _dbContext.Set<Table>()
-                .Where(x => x.RestaurantId == restaurantId).ToArrayAsync();
-            var rs = new List<TableType>();
-            foreach (var item in tables)
-            {
-                rs.Add(new TableType
+                .Where(x => x.RestaurantId == restaurantId)
+                .Select(x => new TableType
                 {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Capacity = item.Capacity,
-                    Status = item.Status
-                });
-            }
-
-            return rs.ToArray();
+                    Id = x.Id,
+                    Name = x.Name,
+                    Capacity = x.Capacity,
+                    Status = x.Status
+                }).ToArrayAsync();
+            
+            return tables;
         }
 
         public async Task<IReadOnlyDictionary<Guid, TableType>> GetTablesAsync(IReadOnlyCollection<Guid> tableIds)

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AntFood.Framework\AntFood.Framework.csproj" />
     <ProjectReference Include="..\AntFood.Contracts\AntFood.Contracts.csproj" />
   </ItemGroup>
 

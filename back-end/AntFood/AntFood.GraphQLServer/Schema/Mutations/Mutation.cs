@@ -20,7 +20,7 @@ namespace AntFood.GraphQLServer.Schema.Mutations
             return await _restaurantService.AddRestaurantAsync(name);
         }
 
-        public async Task<TableType> AddTable(AddTable input)
+        public async Task<TableType> AddTable(AddTableInput input)
         {
             return await _tableService.AddTableAsync(input);
         }
