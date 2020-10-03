@@ -6,25 +6,27 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AntFood.Domain.Migrations
+namespace AntFood.GraphQLServer.Migrations
 {
     [DbContext(typeof(AFDbContext))]
-    [Migration("20191016133540_InitMigration")]
+    [Migration("20201003082003_InitMigration")]
     partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("AntFood.Domain.Models.Food", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -34,13 +36,17 @@ namespace AntFood.Domain.Migrations
             modelBuilder.Entity("AntFood.Domain.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("PaidStatus");
+                    b.Property<int>("PaidStatus")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("RestaurantId");
+                    b.Property<Guid>("RestaurantId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<Guid>("TableId");
+                    b.Property<Guid>("TableId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -54,15 +60,20 @@ namespace AntFood.Domain.Migrations
             modelBuilder.Entity("AntFood.Domain.Models.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<Guid>("FoodId");
+                    b.Property<Guid>("FoodId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<Guid>("OrderId");
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("Quantity");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -76,13 +87,17 @@ namespace AntFood.Domain.Migrations
             modelBuilder.Entity("AntFood.Domain.Models.PaymentMethod", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<Guid?>("OrderId");
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<Guid>("RestaurantId");
+                    b.Property<Guid>("RestaurantId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -96,9 +111,14 @@ namespace AntFood.Domain.Migrations
             modelBuilder.Entity("AntFood.Domain.Models.Restaurant", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -108,17 +128,23 @@ namespace AntFood.Domain.Migrations
             modelBuilder.Entity("AntFood.Domain.Models.Table", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("Capicity");
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Order");
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("RestaurantId");
+                    b.Property<Guid>("RestaurantId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -132,12 +158,14 @@ namespace AntFood.Domain.Migrations
                     b.HasOne("AntFood.Domain.Models.Restaurant", "Restaurant")
                         .WithMany("Orders")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AntFood.Domain.Models.Table", "Table")
                         .WithMany()
                         .HasForeignKey("TableId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AntFood.Domain.Models.OrderItem", b =>
@@ -145,24 +173,27 @@ namespace AntFood.Domain.Migrations
                     b.HasOne("AntFood.Domain.Models.Food", "Food")
                         .WithMany()
                         .HasForeignKey("FoodId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AntFood.Domain.Models.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AntFood.Domain.Models.PaymentMethod", b =>
                 {
-                    b.HasOne("AntFood.Domain.Models.Order")
+                    b.HasOne("AntFood.Domain.Models.Order", null)
                         .WithMany("PaymentMethods")
                         .HasForeignKey("OrderId");
 
                     b.HasOne("AntFood.Domain.Models.Restaurant", "Restaurant")
                         .WithMany("PaymentMethods")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AntFood.Domain.Models.Table", b =>
@@ -170,7 +201,8 @@ namespace AntFood.Domain.Migrations
                     b.HasOne("AntFood.Domain.Models.Restaurant", "Restaurant")
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

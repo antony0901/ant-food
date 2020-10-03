@@ -32,25 +32,22 @@ namespace AntFood.GraphQLServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AFDbContext>(options => 
-                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-                
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<IRestaurantService, RestaurantService>();
-            services.AddScoped<ITableService, TableService>();
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContextPool<AFDbContext>(options =>
+                options.UseMySql(connection, 
+                    b => b.MigrationsAssembly(typeof(Startup).Namespace)));
+
+            services.AddMvc();
+            RegisterServices(services);
 
             services.AddDataLoaderRegistry();
-            //ConfigureGraphQLCodeFirst(services);
             ConfigureGraphQLSchemaFirst(services);
         }
 
-        public void ConfigureGraphQLCodeFirst(IServiceCollection services)
+        private static void RegisterServices(IServiceCollection services)
         {
-            services.AddGraphQL(sp => SchemaBuilder.New()
-              .AddQueryType<QueryType>()
-              .AddMutationType<MutationType>()
-              .AddServices(sp)
-              .Create());
+            services.AddScoped<IRestaurantService, RestaurantService>();
+            services.AddScoped<ITableService, TableService>();
         }
 
         public void ConfigureGraphQLSchemaFirst(IServiceCollection services)
@@ -59,24 +56,13 @@ namespace AntFood.GraphQLServer
                 .AddQueryType<QueryType>()
                 .AddMutationType<MutationType>()
                 .AddServices(sp)
-                //.AddDocumentFromFile("schema.graphql")
-                //.BindComplexType<Query>(c => c.To("Query"))
-                //.BindResolver<QueryResolvers>(c => c.To<Query>())
-                //.BindComplexType<Mutation>(c => c.To("Mutation"))
-                //.BindResolver<MutationResolvers>(c => c.To<Mutation>())
-                //.BindComplexType<RestaurantType>(ctx => ctx.To("RestaurantType"))
-                //.BindComplexType<TableType>(c => c.To("TableType"))
-                //.BindComplexType<OrderType>(c => c.To("OrderType"))
-                //.BindResolver<OrderTypeResolver>(c => c.To<OrderType>())
-                //.BindComplexType<OrderItemType>(c => c.To("OrderItemType"))
-                //.BindComplexType<AddTableInput>(c => c.To("AddTableInput"))
                 .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }

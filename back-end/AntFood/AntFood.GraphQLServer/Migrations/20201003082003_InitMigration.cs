@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AntFood.Domain.Migrations
+namespace AntFood.GraphQLServer.Migrations
 {
     public partial class InitMigration : Migration
     {
@@ -24,6 +24,7 @@ namespace AntFood.Domain.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -38,8 +39,8 @@ namespace AntFood.Domain.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     RestaurantId = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Order = table.Column<string>(nullable: true),
-                    Capicity = table.Column<int>(nullable: false),
+                    Order = table.Column<int>(nullable: false),
+                    Capacity = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
